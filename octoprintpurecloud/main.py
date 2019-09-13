@@ -1,22 +1,20 @@
 # coding=utf-8
 from __future__ import absolute_import
 import octoprint.plugin
+import octoprint.events
 import requests
 import json
 
-class OctoprintPurecloudPlugin(octoprint.plugin.ProgressPlugin,
+class OctoprintPurecloudPlugin(octoprint.plugin.EventHandlerPlugin,
                         octoprint.plugin.SettingsPlugin):
 
     running_print = ""                    
     
-    def on_print_progress(self, storage, path, progress):
-        if progress == 0 and self.running_print != path:
-            self.send_web_hook("Print " + path + " complete")
-            self.running_print = path
-
-        if progress == 100 and self.running_print == path:
-            self.send_web_hook("Print " + path + " complete")
-            self.running_print = ""
+    def on_event(self, event, payload):
+        if event == octoprint.events.Events.PRINT_STARTED:
+            self.send_web_hook("Print " + payload['name'] + " ("+ payload['size'] +")" + " started")
+        elif event == octoprint.events.Events.PRINT_DONE:			
+            self.send_web_hook("Print " + payload['name'] + " complete")
   
     def get_settings_defaults(self):
         return dict(webhook_uri="", printer_name="")
