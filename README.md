@@ -1,0 +1,1 @@
+Octoprint plugin to send chat messages to PureCloud when projects start and finish

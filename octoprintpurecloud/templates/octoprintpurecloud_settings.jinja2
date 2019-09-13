@@ -1,0 +1,14 @@
+<form class="form-horizontal">
+    <div class="control-group">
+        <label class="control-label">{{ _('Webhook Url') }}</label>
+        <div class="controls">
+            <input type="text" class="input-block-level" data-bind="value: settings.plugins.octoprintpurecloud.webhook_uri">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">{{ _('Printer Name (eg Indy, RTP)') }}</label>
+        <div class="controls">
+            <input type="text" class="input-block-level" data-bind="value: settings.plugins.octoprintpurecloud.printer_name">
+        </div>
+    </div>
+</form>
